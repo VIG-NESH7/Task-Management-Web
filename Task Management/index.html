@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Management App</title>
+  <link rel="stylesheet" href="task.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f2f4f7;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 50px;
+    }
+
+    .container {
+      width: 450px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 15px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #f9fafb;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 5px solid #2563eb;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: gray;
+      border-left-color: green;
+    }
+
+    .delete-btn {
+      background: red;
+      padding: 8px 10px;
+    }
+
+    .done-btn {
+      background: green;
+      padding: 8px 10px;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Task Management App</h1>
+    <script src="script.js"></script>
+
+    <div class="input-box">
+      <input type="text" id="taskInput" placeholder="Enter your task">
+      <button onclick="addTask()">Add</button>
+    </div>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    function addTask() {
+      let taskInput = document.getElementById("taskInput");
+      let taskText = taskInput.value.trim();
+
+      if (taskText === "") {
+        alert("Please enter a task");
+        return;
+      }
+
+      let taskList = document.getElementById("taskList");
+
+      let li = document.createElement("li");
+
+      li.innerHTML = `
+        <span>${taskText}</span>
+        <div>
+          <button class="done-btn" onclick="markDone(this)">Done</button>
+          <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+        </div>
+      `;
+
+      taskList.appendChild(li);
+
+      taskInput.value = "";
+    }
+
+    function markDone(button) {
+      let taskItem = button.parentElement.parentElement;
+      taskItem.classList.toggle("done");
+    }
+
+    function deleteTask(button) {
+      let taskItem = button.parentElement.parentElement;
+      taskItem.remove();
+    }
+  </script>
+
+</body>
+</html>
